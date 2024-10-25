@@ -13,7 +13,7 @@ import React from 'react'
       <div class="flex space-x-4 mb-4">
         <div class="flex-1">
           <label class="relative block">
-            <input type="text" placeholder="First Name" class="w-full border border-gray-300 rounded-lg py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            <input type="text" placeholder="First Name" class="w-full border border-gray-300 rounded-lg py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 text-zinc-950"/>
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
               <i class="fas fa-user text-gray-400"></i>
             </span>
@@ -21,7 +21,7 @@ import React from 'react'
         </div>
         <div class="flex-1">
           <label class="relative block">
-            <input type="text" placeholder="Last Name" class="w-full border border-gray-300 rounded-lg py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            <input type="text" placeholder="Last Name" class="w-full border border-gray-300 rounded-lg py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500  text-zinc-950"/>
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
               <i class="fas fa-user text-gray-400"></i>
             </span>
@@ -30,14 +30,14 @@ import React from 'react'
       </div>
       
       <div class="relative mb-4">
-        <input type="email" placeholder="Email" class="w-full border border-gray-300 rounded-lg py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        <input type="email" placeholder="Email" class="w-full border border-gray-300 rounded-lg py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500  text-zinc-950"/>
         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
           <i class="fas fa-envelope text-gray-400"></i>
         </span>
       </div>
     
       <div class="relative mb-6">
-        <input type="tel" placeholder="Phone" class="w-full border border-gray-300 rounded-lg py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        <input type="tel" placeholder="Phone" class="w-full border border-gray-300 rounded-lg py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500  text-zinc-950  "/>
         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
           <i class="fas fa-phone text-gray-400"></i>
         </span>

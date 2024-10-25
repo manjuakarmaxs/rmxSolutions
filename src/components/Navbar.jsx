@@ -1,130 +1,112 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation(); // to get the current path
+  const [productCertOpen, setProductCertOpen] = useState(false);
+  const [qciSchemesOpen, setQciSchemesOpen] = useState(false);
+  const [documentsOpen, setDocumentsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // State to control the mobile menu
 
-  // Close the dropdown when clicking outside
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (!event.target.closest('.dropdown')) {
-        setShowDropdown(false);
-      }
-    };
-    document.addEventListener('click', handleOutsideClick);
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, []);
-
-  const handleDropdownClick = (path) => {
-    setShowDropdown(false);
-    navigate(path);
-  };
-
-  const getLinkClass = (path) => {
-    // If current path matches the link's path, apply the active styles
-    return location.pathname === path
-      ? 'text-blue-800 font-bold'
-      : 'hover:text-blue-700 font-bold';
+  const closeAllDropdowns = () => {
+    setProductCertOpen(false);
+    setQciSchemesOpen(false);
+    setDocumentsOpen(false);
   };
 
   return (
-    <div className="bg-light black text-white px-8 py-4 flex items-center justify-center shadow-lg">
-      <div className="flex space-x-8">
-        <Link to="/" className={getLinkClass('/')}>Home</Link>
-        <Link to="/about" className={getLinkClass('/about')}>AboutUs</Link>
+    <div className="bg-light text-white px-8 py-4 flex items-center justify-between shadow-lg">
+      {/* Logo or Title can be added here */}
+      <div className="text-lg font-bold">RMX</div>
 
-        {/* Dropdown for Services */}
-        <div className="relative dropdown">
+      {/* Hamburger Icon for mobile */}
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        className="block md:hidden focus:outline-none"
+      >
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+
+      {/* Left Nav Links */}
+      <div className={`flex-col md:flex md:flex-row md:space-x-8 justify-center ${menuOpen ? 'flex' : 'hidden md:flex'}`}>
+        <Link to="/" className="hover:text-blue-500 transition duration-300 ease-in-out">AboutUs</Link>
+
+        {/* Product Certification Dropdown */}
+        <div className="relative">
           <button
-            onClick={() => setShowDropdown(!showDropdown)}
-            className={`${
-              location.pathname.includes('/services') ? 'text-blue-800 font-bold' : 'hover:text-blue-700 font-bold'
-            } focus:outline-none`}
+            onClick={() => setProductCertOpen(!productCertOpen)}
+            className="hover:text-blue-500 focus:outline-none transition duration-300 ease-in-out"
           >
-            Services
+            Product Certification
           </button>
-
-          {showDropdown && (
-            <div className="absolute z-10 bg-white text-black shadow-lg mt-2 rounded-md w-64">
-              <button
-                onClick={() => handleDropdownClick('/services/programs')}
-                className="block w-full text-left text-sm px-4 py-2 hover:bg-gray-200"
+          {productCertOpen && (
+            <div className="absolute z-10 bg-white text-black rounded-md shadow-md mt-2 py-2 w-64 transition-transform transform origin-top">
+              <Link 
+                to="/qci"
+                className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out"
+                onClick={closeAllDropdowns}
               >
-                A C T OFFERS THE FOLLOWING PROGRAMS TO CIVIL ENGINEERING STUDENTS
-              </button>
-              <button
-                onClick={() => handleDropdownClick('/services/services')}
-                className="block w-full text-left text-sm px-4 py-2 hover:bg-gray-200"
-              >
-                A C T PROVIDES THE FOLLOWING SERVICES TO WORKING CIVIL ENGINEERS
-              </button>
+                QCI Schemes - RMCPCS
+              </Link>
             </div>
           )}
         </div>
 
-        <Link to="/training" className={getLinkClass('/training')}>Training</Link>
-        <Link to="/contact" className={getLinkClass('/contact')}>ContactUs</Link>
-      </div>
-      
-      <div className="ml-8">
-        <Link to='/getstarted' className={getLinkClass('/getstarted') + " bg-white text-black px-4 py-2 rounded-full hover:bg-gray-300"}>
-          Get Started
-        </Link>
+        {/* QCI Schemes Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setQciSchemesOpen(!qciSchemesOpen)}
+            className="hover:text-blue-500 focus:outline-none transition duration-300 ease-in-out"
+          >
+            QCI Schemes - RMCPCS
+          </button>
+          {qciSchemesOpen && (
+            <div className="absolute z-10 bg-white text-black rounded-md shadow-md mt-2 py-2 w-64">
+              <Link to="/quotation-request" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Quotation Request Form</Link>
+              <Link to="/procedure-granting-cert" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Procedure for Granting of Certification</Link>
+              <Link to="/condition-logo-use" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Condition for Logo Use</Link>
+              <Link to="/impartiality-policy" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Impartiality Policy</Link>
+              <Link to="/certification-process" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Certification Process</Link>
+              <Link to="/procedure-resln" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Procedure Resln Appeal Complaint Disputes</Link>
+              <Link to="/fee-structure" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Fee Structure</Link>
+              <Link to="/list-of-clients" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>List of Clients</Link>
+            </div>
+          )}
+        </div>
+
+        {/* Documents Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setDocumentsOpen(!documentsOpen)}
+            className="hover:text-blue-500 focus:outline-none transition duration-300 ease-in-out"
+          >
+            Documents
+          </button>
+          {documentsOpen && (
+            <div className="absolute z-10 bg-white text-black rounded-md shadow-md mt-2 py-2 w-64">
+              <Link to="/condition-logo-use-doc" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Condition for Logo Use</Link>
+              <Link to="/impartiality-policy-doc" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Impartiality Policy</Link>
+              <Link to="/certification-process-doc" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Certification Process</Link>
+              <Link to="/procedure-granting-cert-doc" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Procedure for Granting of Certification</Link>
+              <Link to="/procedure-resln-doc" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Procedure Resln Appeal Complaint Disputes</Link>
+              <Link to="/certification-agreement" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Certification Agreement</Link>
+              <Link to="/feedback-form" className="block px-4 py-2 hover:bg-gray-100 rounded-md transition duration-300 ease-in-out" onClick={closeAllDropdowns}>Feedback Form</Link>
+            </div>
+          )}
+        </div>
+
+        {/* Contact Us Link */}
+        <Link to="/contact" className="hover:text-blue-500 transition duration-300 ease-in-out">ContactUs</Link>
       </div>
     </div>
   );
 };
 
 export default Navbar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-
-// const Navbar = () => {
-//   return (
-    
-//     <div className="bg-light black text-white px-8 py-4 flex items-center justify-center shadow-lg">
-//       <div className="flex space-x-8">
-//         <Link to="/" className="hover:text-gray-500">Home</Link> 
-//         <Link to="/about" className="hover:text-gray-500">AboutUs</Link>
-//         <Link to="/services" className="hover:text-gray-500">Services</Link>
-//         <Link to="/training" className="hover:text-gray-500">Training</Link>
-//         <Link to="/contact" className="hover:text-gray-500">ContactUs</Link>
-//       </div>
-//       <div className="ml-8">
-//         <a href="#" className="bg-white text-black px-4 py-2 rounded-full hover:bg-gray-300">Get Started</a>
-//       </div>
-//     </div>
-    
-//   );
-// };
-
-// export default Navbar;
-
-
-
-
-

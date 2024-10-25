@@ -66,7 +66,7 @@ const ISOCertification = () => {
   };
 
   return (
-    <div className="bg-gray-100 py-12">
+    <div className="bg-gray-100 py-12 ">
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-red-600 text-4xl font-bold">ISO CERTIFICATION</h1>
